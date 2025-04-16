@@ -27,6 +27,13 @@ export class PostService {
     }
   ];
 
+  //commenti
+  private comments: { postId: number; userId: number; body: string }[] = [
+    { postId: 1, userId: 2, body: 'Fanstastico!!!' },
+    { postId: 1, userId: 3, body: 'Comprata e sono contento.' },
+    { postId: 2, userId: 3, body: 'Commento 3 di prova' }
+  ];
+
   constructor(private authService: AuthService) { }
 
   //prendi tutti i posts
@@ -52,6 +59,25 @@ export class PostService {
   //prendi un post in base all'id
   getPostById(id: number) {
     return this.posts.find(post => post.id === id);
+  }
+
+  //prendi i commenti
+  getCommentsByPostId(postId: number) {
+    return this.comments.filter(comment => comment.postId === postId);
+  }
+
+  //aggiungi un commento
+  addComment(postId: number, body: string): void {
+    const user = this.authService.getCurrentUser();
+    if (!user) return;
+  
+    const newComment = {
+      postId,
+      userId: user.id,
+      body
+    };
+  
+    this.comments.push(newComment);
   }
   
 }
