@@ -82,3 +82,11 @@
   text-decoration: underline;
   color: #007bff;
 }
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-top: 2rem;
+  font-family: sans-serif;
+}

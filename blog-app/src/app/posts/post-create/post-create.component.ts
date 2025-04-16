@@ -11,6 +11,7 @@ export class PostCreateComponent {
   title = '';
   body = '';
   imageUrl = '';
+  currentUserId = 0;
   error = '';
 
   constructor(private postService: PostService, private router: Router) {}
@@ -24,8 +25,11 @@ export class PostCreateComponent {
       return;
     }
 
+    this.currentUserId = this.postService.getCurrentUser().id;
+    console.log('Current User ID:', this.currentUserId);
+
     // crea un nuovo post e reindirizza alla pagina dei post
-    this.postService.addPost(this.title, this.body, this.imageUrl).subscribe(() => {
+    this.postService.addPost(this.title, this.body, this.imageUrl, this.currentUserId).subscribe(() => {
       this.router.navigate(['/posts']);
     });
   }

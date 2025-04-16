@@ -22,14 +22,17 @@ export class PostService {
   }
 
   //aggiungi un post
-  addPost(title: string, body: string, imageUrl: string): Observable<Post> {
-    const post = { title, body, userId: 1, imageUrl }; // Fake userId for now
+  addPost(title: string, body: string, imageUrl: string, userId: number): Observable<Post> {
+    const post = { title, body, userId, imageUrl }; // Fake userId for now
     console.log('Post aggiunto:', post);
     return this.http.post<Post>(this.apiUrl, post);
     
   }
   
-  
+  //trova l'utente corrente
+  getCurrentUser() {
+    return this.authService.getCurrentUser();
+  }
 
   //prendi un post in base all'id
   getPostById(id: number): Observable<Post> {
