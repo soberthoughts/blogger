@@ -1,0 +1,25 @@
+<h2>New Post</h2>
+
+<form (ngSubmit)="onSubmit()" #postForm="ngForm">
+  <label for="title">Title</label>
+  <input
+    type="text"
+    id="title"
+    name="title"
+    required
+    [(ngModel)]="title"
+  />
+
+  <label for="body">Body</label>
+  <textarea
+    id="body"
+    name="body"
+    required
+    rows="6"
+    [(ngModel)]="body"
+  ></textarea>
+
+  <button type="submit">Create Post</button>
+</form>
+
+<p *ngIf="error" class="error">{{ error }}</p>

@@ -1,0 +1,14 @@
+<div class="post-list">
+    <h2>Posts</h2>
+  
+    <a routerLink="/posts/create">Create New Post</a>
+  
+    <div *ngFor="let post of posts" class="post-preview">
+      <h3>
+        <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
+      </h3>
+      <p><strong>By:</strong> {{ getAuthorName(post.userId) }}</p>
+      <p>{{ post.body | slice:0:80 }}...</p>
+    </div>
+  </div>
+  
