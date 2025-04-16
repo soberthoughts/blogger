@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 interface User {
   id: number;
@@ -24,6 +25,10 @@ export class AuthService {
   //utente loggato
   private loggedInUser: User | null = null;
 
+  //comportamento dell'utente loggato
+  private loggedInUserSubject = new BehaviorSubject<User | null>(null);
+  loggedInUser$ = this.loggedInUserSubject.asObservable();
+
   constructor(private router: Router) {}
 
   //restituisce l'utente loggato
@@ -32,6 +37,7 @@ export class AuthService {
     //se l'utente è stato trovato, lo memorizziamo
     if (foundUser) {
       this.loggedInUser = foundUser;
+      this.loggedInUserSubject.next(this.loggedInUser);
       return true;
     }
 
@@ -41,6 +47,7 @@ export class AuthService {
   //se l'utente è loggato, lo disconnettiamo
   logout(): void {
     this.loggedInUser = null;
+    this.loggedInUserSubject.next(null);
     this.router.navigate(['/login']);
   }
 
@@ -59,7 +66,4 @@ export class AuthService {
     return this.users.find(user => user.id === id);
   }
 
-  getCurrentUserName(): string | null {
-    return this.loggedInUser ? this.loggedInUser.name : null;
-  }
 }
