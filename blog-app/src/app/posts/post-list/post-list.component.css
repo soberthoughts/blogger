@@ -1,7 +1,84 @@
-.spinner {
-    text-align: center;
-    font-size: 1.2rem;
-    padding: 2rem;
-    color: #007bff;
-  }
-  
+.post-list-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.post-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.new-post-btn {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.new-post-btn:hover {
+  background-color: #0056b3;
+}
+
+.post-card {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
+.post-card:hover {
+  background-color: #f9f9f9;
+}
+
+.post-image {
+  width: 100px;
+  height: 100px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+.post-content {
+  flex: 1;
+}
+
+.post-title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.divider {
+  font-weight: normal;
+  color: #666;
+}
+
+.post-body {
+  margin-top: 0.5rem;
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 2rem;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.post-title a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.post-title a:hover {
+  text-decoration: underline;
+  color: #007bff;
+}

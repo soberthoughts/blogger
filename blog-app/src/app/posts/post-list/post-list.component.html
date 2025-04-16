@@ -1,17 +1,24 @@
-<div *ngIf="isLoading" class="spinner">Loading posts...</div>
-<div *ngIf="!isLoading && posts.length === 0">No posts found.</div>
+<div class="post-list-container">
+  <div class="post-list-header">
+    <div></div>
+    <button routerLink="/posts/create" class="new-post-btn">New post</button>
+  </div>
 
-<div class="post-list">
-    <h2>Posts</h2>
-  
-    <a routerLink="/posts/create">Create New Post</a>
-  
-    <div *ngFor="let post of posts" class="post-preview">
-      <h3>
-        <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
+  <div *ngFor="let post of posts" class="post-card">
+    <div class="post-image"></div>
+
+    <div class="post-content">
+      <h3 class="post-title">
+        <a [routerLink]="['/posts', post.id]" class="post-link"> 
+        {{ post.title }} 
+        </a>
+        <span class="divider">|</span> {{ getAuthorName(post.userId) }}
       </h3>
-      <p><strong>By:</strong> {{ getAuthorName(post.userId) }}</p>
-      <p>{{ post.body | slice:0:80 }}...</p>
+      <p class="post-body">{{ post.body | slice: 0:280 }}...</p>
     </div>
   </div>
-  
+
+  <div class="pagination">
+    << Prev 1 2 3 4 5 6 7 8 9 10 Next >>
+  </div>
+</div>
