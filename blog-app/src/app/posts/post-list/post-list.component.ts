@@ -12,23 +12,34 @@ export class PostListComponent implements OnInit {
   posts: Post[] = [];
   isLoading = false;
 
+  currentPage = 1;
+  postsPerPage = 5;
 
   constructor(private postService: PostService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.isLoading = true;
-
+    
     setTimeout(() => {
-      this.posts = this.postService.getPosts();
-      console.log(this.posts);
+      this.loadPosts(this.currentPage);
       this.isLoading = false;
     }, 1000);
+  }
     
+  loadPosts(page: number): void {
+    this.currentPage = page;
+    this.postService.getPostsPaged(page, this.postsPerPage).subscribe(posts => {
+      this.posts = posts;
+    });
   }
 
   getAuthorName(userId: number): string {
     const user = this.authService.getUserById(userId);
     return user ? user.username : 'Unknown';
+  }
+
+  getPostImageUrl(post: Post): string {
+    return post.imageUrl || 'https://via.placeholder.com/150';
   }
 
 }

@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class PostDetailComponent implements OnInit {
   post: Post | null = null;
-  comments: { postId:number, userId: number, body:string }[] = [];
+  comments: any[] = [];
   newComment: string = '';
 
   constructor(
@@ -22,8 +22,13 @@ export class PostDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const postId = Number(this.route.snapshot.paramMap.get('id'));
-    this.post = this.postService.getPostById(postId);
-    this.comments = this.postService.getCommentsByPostId(postId);
+    this.postService.getPostById(postId).subscribe(post => {
+      this.post = post;
+    });
+    this.postService.getCommentsByPostId(postId).subscribe(comments => {
+      console.log('COMMENTS LOADED:', comments);
+      this.comments = comments;
+    });
   }
 
   // metodo per ottenere il nome dell'autore
@@ -34,11 +39,22 @@ export class PostDetailComponent implements OnInit {
 
   // aggiungere un commento
   addComment(): void {
-    if (this.newComment.trim()) {
-      this.postService.addComment(this.post!.id, this.newComment);
-      this.comments = this.postService.getCommentsByPostId(this.post!.id); // reload
-      this.newComment = '';
-    }
+    const body = this.newComment.trim();
+  
+    if (!body || !this.post) return;
+  
+    this.postService.addComment(this.post.id, body).subscribe({
+      next: () => {
+        this.postService.getCommentsByPostId(this.post.id).subscribe(comments => {
+          this.comments = comments;
+        });
+        this.newComment = '';
+      },
+      error: err => {
+        console.error('Failed to add comment', err);
+      }
+    });
   }
+  
 
 }

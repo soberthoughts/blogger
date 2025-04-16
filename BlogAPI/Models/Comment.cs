@@ -1,9 +1,11 @@
 namespace BlogAPI.Models;
-
+using System.Text.Json.Serialization;
 public class Comment {
     public int Id { get; set; }
     public int PostId { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public int UserId { get; set; }
     public string Body { get; set; } = string.Empty;
-    public Post? Post { get; set; } = new ();
+
+    [JsonIgnore]
+    public Post? Post { get; set; }
 }

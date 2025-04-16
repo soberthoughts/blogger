@@ -23,7 +23,8 @@ export class PostCreateComponent {
     }
 
     // crea un nuovo post e reindirizza alla pagina dei post
-    this.postService.addPost(this.title, this.body);
-    this.router.navigate(['/posts']);
+    this.postService.addPost(this.title, this.body).subscribe(() => {
+      this.router.navigate(['/posts']);
+    });
   }
 }

@@ -1,4 +1,5 @@
 <div *ngIf="post">
+  <img [src]="post.imageUrl" alt="{{ post.title }}" class="post-image" />
     <h2>{{ post.title }}</h2>
     <p class="author"> by
         <strong> {{ getAuthorName(post.userId) }}</strong>
