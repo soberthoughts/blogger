@@ -1,6 +1,8 @@
 <div *ngIf="isLoggedIn" class="top-bar">
     <button class="log" (click)="logOut()">Logout</button>
-    <div class="user">Welcome {{ username }}</div>
+    <div class="user-container">
+      Welcome <span class="user">{{ username }}</span>
+    </div>
   </div>
   
   <router-outlet></router-outlet>

@@ -1,25 +1,32 @@
-<div class="login-container">
-    <h2>Login</h2>
-  
+<div class="login-wrapper">
+  <div class="login-box">
+    <p class="login-title">Login</p>
+    <p class="login-subtitle">
+      Please enter your credentials to access the blog.
+    </p>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <hr />
+      <label for="username">User Name:</label>
       <input
         type="text"
+        id="username"
         name="username"
-        placeholder="Username"
         [(ngModel)]="username"
         required
       />
-  
+
+      <label for="password">Password:</label>
       <input
         type="password"
+        id="password"
         name="password"
-        placeholder="Password"
         [(ngModel)]="password"
         required
       />
-  
-      <button type="submit">Login</button>
+
+      <button type="submit" class="login-btn">Login</button>
+
       <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
     </form>
   </div>
-  
+</div>

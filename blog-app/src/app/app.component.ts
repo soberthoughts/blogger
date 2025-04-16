@@ -13,15 +13,14 @@ export class AppComponent implements OnInit {
 
   constructor(private auth: AuthService) { }
 
+  // controlla il behavior del login
+  // e aggiorna il nome utente
   ngOnInit(): void {
-    const user = this.auth.getCurrentUser();
-    console.log(user);
-    if (user) {
-      this.isLoggedIn = true;
-      this.username = user.name;
-    } else {
-      this.isLoggedIn = false;
+    this.auth.loggedInUser$.subscribe(user => {
+      this.isLoggedIn = !!user;
+      this.username = user ? user.username : '';
     }
+    );
   }
 
   // Metodo per il logout
