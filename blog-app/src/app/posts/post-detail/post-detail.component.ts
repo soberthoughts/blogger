@@ -29,7 +29,7 @@ export class PostDetailComponent implements OnInit {
   // metodo per ottenere il nome dell'autore
   getAuthorName(userId: number): string {
     const user = this.authService.getUserById(userId);
-    return user ? user.username : 'Unknown';
+    return user ? user.name : 'Unknown';
   }
 
   // aggiungere un commento

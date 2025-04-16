@@ -1,3 +1,7 @@
-<button (click)="logOut()">Logout</button>
-<router-outlet></router-outlet>
-
+<div *ngIf="isLoggedIn" class="top-bar">
+    <button class="log" (click)="logOut()">Logout</button>
+    <div class="user">Welcome {{ username }}</div>
+  </div>
+  
+  <router-outlet></router-outlet>
+  

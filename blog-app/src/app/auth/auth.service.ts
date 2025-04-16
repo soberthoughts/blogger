@@ -14,7 +14,7 @@ interface User {
 export class AuthService {
   //utenti hardcoded
   private users: User[] = [
-    {id: 1, username: 'kristirpj', password: 'admin.1', name: 'Kristi'},
+    {id: 1, username: 'kristirpj', password: 'admin.1', name: 'Kristi Rrapaj'},
     {id: 2, username: 'mariorss', password: 'user.1', name: 'Mario Rossi'},
     {id: 3, username: 'giovannib', password: 'user.2', name: 'Giovanni Bini'},
     {id: 4, username: 'lucab', password: 'user.3', name: 'Luca Bianchi'},
@@ -57,5 +57,9 @@ export class AuthService {
   //restituisce l'utente in base all'id
   getUserById(id: number): User | undefined {
     return this.users.find(user => user.id === id);
+  }
+
+  getCurrentUserName(): string | null {
+    return this.loggedInUser ? this.loggedInUser.name : null;
   }
 }

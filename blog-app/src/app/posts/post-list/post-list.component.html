@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" class="spinner">Loading posts...</div>
+<div *ngIf="!isLoading && posts.length === 0">No posts found.</div>
+
 <div class="post-list">
     <h2>Posts</h2>
   

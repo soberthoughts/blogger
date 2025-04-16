@@ -10,12 +10,20 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
+  isLoading = false;
+
 
   constructor(private postService: PostService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.posts = this.postService.getPosts();
-    console.log(this.posts);
+    this.isLoading = true;
+
+    setTimeout(() => {
+      this.posts = this.postService.getPosts();
+      console.log(this.posts);
+      this.isLoading = false;
+    }, 1000);
+    
   }
 
   getAuthorName(userId: number): string {
