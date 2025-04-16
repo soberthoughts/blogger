@@ -18,5 +18,5 @@ export class AuthGuard implements CanActivate {
       return false; // l'utente non è autenticato, blocca l'accesso alla rotta
     }
   }
-  
+
 }
