@@ -13,7 +13,7 @@ export class PostListComponent implements OnInit {
   isLoading = false;
 
   currentPage = 1;
-  postsPerPage = 5;
+  postsPerPage = 3;
 
   constructor(private postService: PostService, private authService: AuthService) { }
 

@@ -10,6 +10,7 @@ import { PostService } from '../post.service';
 export class PostCreateComponent {
   title = '';
   body = '';
+  imageUrl = '';
   error = '';
 
   constructor(private postService: PostService, private router: Router) {}
@@ -17,14 +18,19 @@ export class PostCreateComponent {
   // metodo per la creazione di un post
   // controlla se il titolo e il corpo sono stati inseriti
   onSubmit(): void {
-    if (!this.title || !this.body) {
+    if (this.isFormInvalid()) {
+      // mostra un messaggio di errore se il titolo o il corpo non sono stati inseriti
       this.error = 'Title and body are required.';
       return;
     }
 
     // crea un nuovo post e reindirizza alla pagina dei post
-    this.postService.addPost(this.title, this.body).subscribe(() => {
+    this.postService.addPost(this.title, this.body, this.imageUrl).subscribe(() => {
       this.router.navigate(['/posts']);
     });
+  }
+
+  private isFormInvalid(): boolean {
+    return !this.title || !this.body || !this.imageUrl;
   }
 }
