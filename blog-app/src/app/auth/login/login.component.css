@@ -80,5 +80,13 @@
     color: #666;
     }
 
+    .redirect-msg {
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: #666;
+    font-family: sans-serif;
+    }
+
 
   

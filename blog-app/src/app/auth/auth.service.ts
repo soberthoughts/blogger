@@ -26,10 +26,10 @@ export class AuthService {
   ];
 
   //utente loggato
-  private loggedInUser: User | null = null;
+  public loggedInUser: User | null = null;
 
   //comportamento dell'utente loggato
-  private loggedInUserSubject = new BehaviorSubject<User | null>(null);
+  public loggedInUserSubject = new BehaviorSubject<User | null>(null);
   loggedInUser$ = this.loggedInUserSubject.asObservable();
 
   constructor(private router: Router, private http: HttpClient) {}
@@ -63,6 +63,7 @@ export class AuthService {
 
   //se l'utente è loggato, lo disconnettiamo
   logout(): void {
+    console.log('Logout attempt.');
     this.loggedInUser = null;
     this.loggedInUserSubject.next(null);
 
@@ -70,6 +71,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('token');
 
     this.router.navigate(['/login']); 
   }

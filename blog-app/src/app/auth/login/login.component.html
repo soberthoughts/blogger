@@ -1,4 +1,7 @@
-<div class="login-wrapper">
+<div *ngIf="isAlreadyLoggedIn" class="redirect-msg">
+  {{ isLoggedInText }}
+</div>
+<div class="login-wrapper" *ngIf="!isAlreadyLoggedIn">
   <div class="login-box">
     <p class="login-title">Login</p>
     <p class="login-subtitle">
