@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using BlogAPI.Data;
 using BlogAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using BlogAPI.Services;
 
 namespace BlogAPI.Controllers;
 
@@ -9,26 +10,17 @@ namespace BlogAPI.Controllers;
 [Route("api/posts/{postId}/comments")]
 public class CommentsController: ControllerBase
 {
-    private readonly BlogContext _context;
+    private readonly ICommentService _commentService;
 
-    public CommentsController(BlogContext context)
+    public CommentsController(ICommentService commentService)
     {
-        _context = context;
+        _commentService = commentService;
     }
-
+   
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Comment>>> GetComments(int postId)
     {
-        var post = await _context.Posts.FindAsync(postId);
-        if (post == null)
-        {
-            return NotFound();
-        }
-
-        var comments = await _context.Comments
-            .Where(c => c.PostId == postId)
-            .ToListAsync();
-
+        var comments = await _commentService.GetCommentsForPost(postId);
         return Ok(comments);
     }
 
@@ -36,16 +28,9 @@ public class CommentsController: ControllerBase
     [HttpPost]
     public async Task<ActionResult<Comment>> CreateComment(int postId, Comment comment)
     {
-        var post = await _context.Posts.FindAsync(postId);
-        if (post == null)
-        {
-            return NotFound();
-        }
-
-        comment.PostId = postId;
-        _context.Comments.Add(comment);
-        await _context.SaveChangesAsync();
-
-        return Ok(comment);
+        var created = await _commentService.CreateComment(postId, comment);
+        if (created == null) return NotFound(); // if post doesn't exist
+        return CreatedAtAction(nameof(GetComments), new { postId = created.PostId }, created);
     }
+
 }
