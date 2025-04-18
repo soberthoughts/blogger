@@ -24,6 +24,11 @@
         required
       />
 
+      <label>
+        <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" />
+        Ricordami
+      </label>
+
       <button type="submit" class="login-btn">Login</button>
 
       <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>

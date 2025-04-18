@@ -12,11 +12,12 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  rememberMe: boolean = false;
 
   constructor(private auth: AuthService, private router: Router) { }
 
   onSubmit(): void {
-    this.auth.login(this.username, this.password).subscribe({
+    this.auth.login(this.username, this.password, this.rememberMe).subscribe({
       next: () => {
         this.router.navigate(['/posts']);
       },
