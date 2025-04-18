@@ -1,12 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using BlogAPI.Data;
 using BlogAPI.Models;
+using BlogAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<BlogContext>(options =>
 options.UseInMemoryDatabase("BlogDb"));
+
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IPostService, PostService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
