@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     if (userData) {
       const user = JSON.parse(userData);
       this.auth.loggedInUser = user;
-      this.isLoggedInText = "Welcome back " + user.username + "!. You are already logged in. Redirecting to posts page...";
+      this.isLoggedInText = "Welcome back " + user.name + "!. You are already logged in. Redirecting to posts page...";
       this.isAlreadyLoggedIn = true;
       console.log("Redirecting to posts page...");
       // aggiorna anche il BehaviorSubject (facoltativo ma utile)
