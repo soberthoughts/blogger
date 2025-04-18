@@ -35,14 +35,20 @@ export class AuthService {
   constructor(private router: Router, private http: HttpClient) {}
 
   //restituisce l'utente loggato
-  login(username: string, password: string): Observable<any> {
-    console.log('Login attempt:', username, password);
+  login(username: string, password: string, rememberMe: boolean): Observable<any> {
+    console.log('Login attempt.');
     return this.http.post<{ token: string }>('http://localhost:5088/api/auth/login', {
       username,
       password
     }).pipe(
       tap(response => {
-        localStorage.setItem('token', response.token);
+        if (rememberMe) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
+        } else {
+          sessionStorage.setItem('token', response.token);
+          sessionStorage.setItem('user', JSON.stringify(response.user));
+        }
   
         // Trova l'utente localmente
         const user = this.users.find(u => u.username === username);
@@ -59,7 +65,13 @@ export class AuthService {
   logout(): void {
     this.loggedInUser = null;
     this.loggedInUserSubject.next(null);
-    this.router.navigate(['/login']);
+
+    // Rimuovi il token e l'utente da localStorage o sessionStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
+
+    this.router.navigate(['/login']); 
   }
 
   //restituisce true se l'utente è loggato, false altrimenti
