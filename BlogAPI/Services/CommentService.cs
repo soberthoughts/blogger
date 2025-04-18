@@ -27,7 +27,7 @@ namespace BlogAPI.Services
             var post = await _context.Posts.FindAsync(postId);
             if (post == null)
             {
-                throw new Exception("Post not found");
+                return null; // non trovato, non aggiungere il commento
             }
             comment.PostId = postId;
             _context.Comments.Add(comment);
