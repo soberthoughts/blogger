@@ -6,6 +6,14 @@ using Microsoft.EntityFrameworkCore;
 namespace BlogAPI.Services
 {
 
+    /*
+     * CommentService: implementa la interfaccia ICommentService, costruisce i metodi per prendere e creare commenti secondo
+     * il post ID.
+     * Usa Entity Framework per interagire con il database.
+     * I metodi sono asincroni per migliorare le prestazioni e la reattività dell'applicazione.
+     */
+
+
     public class CommentService : ICommentService
     {
         private readonly BlogContext _context;

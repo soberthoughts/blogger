@@ -6,6 +6,13 @@ using BlogAPI.Services;
 
 namespace BlogAPI.Controllers;
 
+/* 
+ * Questa classe gestisce le richieste HTTP per i commenti.
+ * Le azioni disponibili sono:
+ * - GET /api/posts/{postId}/comments: restituisce tutti i commenti per un post specifico.
+ * - POST /api/posts/{postId}/comments: crea un nuovo commento per un post specifico.
+*/
+
 [ApiController]
 [Route("api/posts/{postId}/comments")]
 public class CommentsController: ControllerBase

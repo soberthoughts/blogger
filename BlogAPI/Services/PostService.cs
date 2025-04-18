@@ -5,6 +5,10 @@ using BlogAPI.Services;
 
 public class PostService : IPostService
 {
+    /* Questa classe implementa IPostService e gestisce la logica per i post.
+    * Utilizza Entity Framework per interagire con il database.
+    * I metodi sono asincroni per migliorare le prestazioni e la reattività dell'applicazione.
+    */
     private readonly BlogContext _context;
 
     public PostService(BlogContext context)

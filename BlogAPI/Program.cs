@@ -2,6 +2,24 @@ using Microsoft.EntityFrameworkCore;
 using BlogAPI.Data;
 using BlogAPI.Models;
 using BlogAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+
+/*
+ * BlogAPI - API per IL blog costruita con ASP.NET Core ed Entity Framework Core.
+ * Questa API consente agli utenti di creare, leggere, aggiornare ed eliminare post e commenti del blog.
+ *
+    * Funzionalità:
+    * - Database in memoria per una configurazione e test semplificati
+    * - Operazioni CRUD di base per post e commenti
+    * - Swagger UI per documentazione e test dell'API
+    * - Supporto CORS per richieste cross-origin
+    * - Dependency injection per la gestione dei servizi
+    * - Entity Framework Core per l'accesso ai dati
+ */
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +34,22 @@ builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var jwtKey = builder.Configuration["Jwt:Key"] ?? "chiave_super_segrettissima_12345";
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var key = Encoding.ASCII.GetBytes(jwtKey);
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false, // Puoi metterli a true e gestire gli issuer se vuoi
+            ValidateAudience = false
+        };
+    });
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -25,7 +59,6 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
-
 
 var app = builder.Build();
 
@@ -73,23 +106,23 @@ using (var scope = app.Services.CreateScope())
     if(!context.Comments.Any())
     {
         context.Comments.AddRange(new List<Comment>
-{
-    // Ferrari F40 (PostId = 1)
-    new Comment { PostId = 1, UserId = 1, Body = "An absolute legend. That raw turbo whoosh is unmatched!" },
-    new Comment { PostId = 1, UserId = 2, Body = "Still the best-looking Ferrari in my opinion." },
+        {
+            // Ferrari F40 (PostId = 1)
+            new Comment { PostId = 1, UserId = 1, Body = "An absolute legend. That raw turbo whoosh is unmatched!" },
+            new Comment { PostId = 1, UserId = 2, Body = "Still the best-looking Ferrari in my opinion." },
 
-    // Lamborghini Aventador (PostId = 2)
-    new Comment { PostId = 2, UserId = 3, Body = "You can hear this beast from a mile away. Love the V12 scream." },
-    new Comment { PostId = 2, UserId = 4, Body = "That launch control is brutal. Pure drama on wheels." },
+            // Lamborghini Aventador (PostId = 2)
+            new Comment { PostId = 2, UserId = 3, Body = "You can hear this beast from a mile away. Love the V12 scream." },
+            new Comment { PostId = 2, UserId = 4, Body = "That launch control is brutal. Pure drama on wheels." },
 
-    // McLaren P1 (PostId = 3)
-    new Comment { PostId = 3, UserId = 1, Body = "Electric boost + twin turbo = supercar sorcery." },
-    new Comment { PostId = 3, UserId = 2, Body = "I saw one at Goodwood — photos don’t do it justice." },
+            // McLaren P1 (PostId = 3)
+            new Comment { PostId = 3, UserId = 1, Body = "Electric boost + twin turbo = supercar sorcery." },
+            new Comment { PostId = 3, UserId = 2, Body = "I saw one at Goodwood — photos don’t do it justice." },
 
-    // Bugatti Chiron (PostId = 4)
-    new Comment { PostId = 4, UserId = 3, Body = "It’s not just fast — it’s luxury redefined. Crazy tech." },
-    new Comment { PostId = 4, UserId = 4, Body = "How is this even legal on public roads 😅" }
-});
+            // Bugatti Chiron (PostId = 4)
+            new Comment { PostId = 4, UserId = 3, Body = "It’s not just fast — it’s luxury redefined. Crazy tech." },
+            new Comment { PostId = 4, UserId = 4, Body = "How is this even legal on public roads 😅" }
+        });
 
 
         context.SaveChanges();
@@ -102,6 +135,10 @@ app.UseSwaggerUI();
 app.UseAuthorization();
 
 app.UseCors();
+
+// per abilitare l'autenticazione JWT
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
