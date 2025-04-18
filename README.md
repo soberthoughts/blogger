@@ -30,7 +30,6 @@ Permette agli utenti di autenticarsi, creare post, commentare e visualizzare con
 
 ### Frontend:
 - Angular 18
-- Angular Material (opzionale)
 - Form validation, Routing, AuthGuard
 - Chiamate HTTP con `HttpClient`
 

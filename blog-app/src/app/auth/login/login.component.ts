@@ -16,11 +16,15 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) { }
 
   onSubmit(): void {
-    if (this.auth.login(this.username, this.password)) {
-      this.router.navigate(['/posts']);
-    } else {
-      this.errorMessage = 'Invalid username or password';
-    }
+    this.auth.login(this.username, this.password).subscribe({
+      next: () => {
+        this.router.navigate(['/posts']);
+      },
+      error: () => {
+        this.errorMessage = 'Invalid username or password';
+      }
+    });
   }
+  
 
 }

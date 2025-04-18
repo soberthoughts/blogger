@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { Observable} from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 interface User {
   id: number;
@@ -29,20 +32,28 @@ export class AuthService {
   private loggedInUserSubject = new BehaviorSubject<User | null>(null);
   loggedInUser$ = this.loggedInUserSubject.asObservable();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   //restituisce l'utente loggato
-  login(username: string, password: string): boolean {
-    const foundUser = this.users.find(user => user.username === username && user.password === password);
-    //se l'utente è stato trovato, lo memorizziamo
-    if (foundUser) {
-      this.loggedInUser = foundUser;
-      this.loggedInUserSubject.next(this.loggedInUser);
-      return true;
-    }
-
-    return false;
-  }
+  login(username: string, password: string): Observable<any> {
+    console.log('Login attempt:', username, password);
+    return this.http.post<{ token: string }>('http://localhost:5088/api/auth/login', {
+      username,
+      password
+    }).pipe(
+      tap(response => {
+        localStorage.setItem('token', response.token);
+  
+        // Trova l'utente localmente
+        const user = this.users.find(u => u.username === username);
+        if (user) {
+          this.loggedInUser = user;
+          this.loggedInUserSubject.next(user);
+        }
+      })
+    );
+  }  
+  
 
   //se l'utente è loggato, lo disconnettiamo
   logout(): void {
