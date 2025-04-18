@@ -1,15 +1,15 @@
-# 📝 BlogAPI
+# BlogAPI
 
 BlogAPI è una semplice applicazione blog full-stack costruita con **ASP.NET Core 8**, **Entity Framework Core** e **Angular**.  
 Permette agli utenti di autenticarsi, creare post, commentare e visualizzare contenuti in un'interfaccia moderna e reattiva.
 
 ---
 
-## 🚀 Funzionalità principali
+## Funzionalità principali
 
 - ✅ CRUD completo per **post** e **commenti**
 - ✅ **Autenticazione JWT** per proteggere le API
-- ✅ **Database In-Memory** (o SQLite opzionale)
+- ✅ **Database In-Memory** 
 - ✅ **Swagger UI** per testare le API
 - ✅ **CORS abilitato** per comunicazione frontend-backend
 - ✅ **Dependency Injection** per i servizi
@@ -18,7 +18,7 @@ Permette agli utenti di autenticarsi, creare post, commentare e visualizzare con
 
 ---
 
-## 🧰 Tecnologie utilizzate
+## Tecnologie utilizzate
 
 ### Backend:
 - .NET 8
@@ -35,7 +35,7 @@ Permette agli utenti di autenticarsi, creare post, commentare e visualizzare con
 
 ---
 
-## 🏗️ Architettura
+##  Architettura
 
 - `/Controllers` → API RESTful
 - `/Services` → Logica di business separata
@@ -45,7 +45,7 @@ Permette agli utenti di autenticarsi, creare post, commentare e visualizzare con
 
 ---
 
-## 🔐 Autenticazione
+## Autenticazione
 
 1. L'utente effettua il login via `/api/auth/login`
 2. Viene restituito un **JWT token**
@@ -54,7 +54,7 @@ Permette agli utenti di autenticarsi, creare post, commentare e visualizzare con
 
 ---
 
-## ▶️ Come eseguire il progetto
+## Come eseguire il progetto
 
 ### Backend (API):
 
@@ -62,3 +62,10 @@ Permette agli utenti di autenticarsi, creare post, commentare e visualizzare con
 cd BlogAPI
 dotnet restore
 dotnet run
+```
+
+### Frontend:
+```bash
+cd blog-api
+ng serve
+```
