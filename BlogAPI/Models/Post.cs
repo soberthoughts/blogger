@@ -6,7 +6,7 @@ namespace BlogAPI.Models
      * Questa classe rappresenta un post del blog.
      * Contiene le proprietà Id, UserId, Title, Body e ImageUrl.
      * Inoltre, contiene una lista di commenti associati al post.
-     */
+    */
 
     public class Post {
     public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace BlogAPI.Models
 
     public List<Comment> Comments { get; set; } = new ();
     }
-    
+
 }
 

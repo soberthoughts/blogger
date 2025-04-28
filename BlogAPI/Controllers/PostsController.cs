@@ -60,4 +60,19 @@ public class PostsController: ControllerBase{
 
         return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<Post>> DeletePost(int id)
+    {
+        var post = await _context.Posts.FindAsync(id);
+        if (post == null)
+        {
+            return NotFound();
+        }
+
+        _context.Posts.Remove(post);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }

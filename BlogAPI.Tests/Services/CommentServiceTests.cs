@@ -61,7 +61,6 @@ public class CommentServiceTests
     }
 
     [Fact]
-
     public async Task CreateComment_ReturnsNull_If_Post_DoesNotExist()
     {
         var context = GetDbContext();

@@ -1,0 +1,8 @@
+[
+    { "id": 1, "username": "kristirpj", "password": "admin.1", "name": "Kristi Rrapaj" },
+    { "id": 2, "username": "mariorss", "password": "user.1", "name": "Mario Rossi" },
+    { "id": 3, "username": "giovannib", "password": "user.2", "name": "Giovanni Bini" },
+    { "id": 4, "username": "lucab", "password": "user.3", "name": "Luca Bianchi" },
+    { "id": 5, "username": "andreap", "password": "user.4", "name": "Andrea Pavan" }
+]
+  

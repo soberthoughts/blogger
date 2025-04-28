@@ -13,7 +13,7 @@ namespace BlogAPI.Models
         public int Id { get; set; }
         [JsonPropertyName("username")]
         public string Username { get; set; } = string.Empty;
-        [JsonPropertyName("email")]
+        [JsonPropertyName("password")]
         public string Password { get; set; } = string.Empty;
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
